@@ -1,1 +1,1 @@
-web: web: gunicorn AuroraDjango.wsgi
+web: gunicorn AuroraDjango.wsgi
