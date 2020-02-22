@@ -24,6 +24,5 @@ class Account(models.Model):
     def __str__(self):
         return self.uname
     uname = models.CharField(max_length=30)
-    email = models.CharField(max_length=50)
     pword = models.CharField(max_length=64)
     signup_date = models.DateTimeField('Date signed up')

@@ -56,10 +56,8 @@ def vote(request, post_id, updown):
     p.save()
     return HttpResponse("OK")
 
-def createAccount(name,mail,word):
+def createAccount(name,word):
     if(Accounts.objects.get(uname=name).exists()):
-        return HttpResponse("uname")
-    elif(Accounts.objects.get(email=mail).exists()):
         return HttpResponse("uname")
     a = Account(uname=name,email=mail,pword=word)
     a.save()
