@@ -11,7 +11,7 @@ def index(request):
     out = ""
     for q in latest_post_list:
         if(q.to_show):
-            out+=(q.post_title+"<br>"+q.post_sub+"<br>"+q.post_text+"<br>"+str(q.id)+"<br>"+str(q.votes)+"<br>"+str(q.happy)+"<br>"+str(q.angry)+"<br>"+str(q.stressy)+"<br>"+str(q.energy)+"<br>"+str(q.worry)+"<br>"+Account.objects.get(pk=q.poster).uname+"<hr>")
+            out += (q.post_title+"<br>"+q.post_sub+"<br>"+q.post_text+"<br>"+str(q.id)+"<br>"+str(q.votes)+"<br>"+str(q.happy)+"<br>"+str(q.angry)+"<br>"+str(q.stressy)+"<br>"+str(q.energy)+"<br>"+str(q.worry)+"<br>"+Account.objects.get(pk=q.id).uname+"<hr>")
     return HttpResponse(out)
 def make(request, title, body, sub, happ, angr, stress, energ, worr, posterID):
     happyVar=False
@@ -35,7 +35,7 @@ def make(request, title, body, sub, happ, angr, stress, energ, worr, posterID):
 def detail(request, post_id):
     try:
         post = Post.objects.get(pk=post_id)
-        return HttpResponse(q.post_title+"<br>"+q.post_sub+"<br>"+q.post_text+"<br>"+str(q.id)+"<br>"+str(q.votes)+str(q.happy)+"<br>"+str(q.angry)+"<br>"+str(q.stressy)+"<br>"+str(q.energy)+"<br>"+str(q.worry)+"<br>"+q.poster)
+        return HttpResponse(q.post_title+"<br>"+q.post_sub+"<br>"+q.post_text+"<br>"+q.id+"<br>"+str(q.votes)+str(q.happy)+"<br>"+str(q.angry)+"<br>"+str(q.stressy)+"<br>"+str(q.energy)+"<br>"+str(q.worry)+"<br>"+q.poster)
     except Post.DoesNotExist:
         raise Http404("404")
 

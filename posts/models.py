@@ -5,7 +5,7 @@ from django.utils import timezone
 class Post(models.Model):
     def __str__(self):
         return self.post_title
-    poster = models.IntegerField(default=0)
+    poster = models.CharField(max_length=30)
     post_text = models.CharField(max_length=500)
     post_title = models.CharField(max_length=20)
     post_sub = models.CharField(max_length=20)
