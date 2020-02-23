@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
+from django.core.exceptions import ObjectDoesNotExist
 #Main, I guess?
 def index(request):
     latest_post_list = Post.objects.order_by('-pub_date')
@@ -57,12 +58,13 @@ def vote(request, post_id, updown):
     return HttpResponse("OK")
 
 def createAccount(request,name,word):
-    if(Accounts.objects.get(uname=name).exists()):
+    try:
+        i = Account.objects.get(uname=name)
         return HttpResponse("uname")
-    a = Account(uname=name,email=mail,pword=word)
-    a.save()
-    return HttpResponse(str(a.id))
-
+    except ObjectDoesNotExist:
+        a = Account(uname=name,pword=word, signup_date=timezone.now())
+        a.save()
+        return HttpResponse(str(a.id))
 def login(name,word):
     if(Account.objects.get(uname=name,pword=word).exists()):
         return HttpResponse(str(Account.objects.get(uname=name,pword=word).id))
