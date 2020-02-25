@@ -12,6 +12,8 @@ urlpatterns = [
     # ex: /polls/5/vote/
     path('<int:post_id>/vote/<str:updown>', views.vote, name='vote'),
 
+    path('login/<str:name>/<str:password>', views.login, name='login'),
+
     path('account/<str:name>/<str:word>', views.createAccount, name='createAccount'),
     #ex: /
     path('make/<str:title>/<int:posterID>/<str:sub>/<str:body>/<int:happ>/<int:angr>/<int:stress>/<int:energ>/<int:worr>', views.make, name='make'),

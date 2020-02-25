@@ -65,8 +65,11 @@ def createAccount(request,name,word):
         a = Account(uname=name,pword=word, signup_date=timezone.now())
         a.save()
         return HttpResponse(str(a.id))
-def login(name,word):
-    if(Account.objects.get(uname=name,pword=word).exists()):
-        return HttpResponse(str(Account.objects.get(uname=name,pword=word).id))
-    else:
-        return HttpResponse("invalid")
+def login(request, name,word):
+    try:
+        i = Account.objects.get(uname=name, pword=word)
+        return HttpResponse(str(i.id))
+    except ObjectDoesNotExist:
+        a = Account(uname=name,pword=word, signup_date=timezone.now())
+        a.save()
+        return HttpResponse(str(a.id))
