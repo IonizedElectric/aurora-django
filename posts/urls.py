@@ -12,7 +12,7 @@ urlpatterns = [
     # ex: /polls/5/vote/
     path('<int:post_id>/vote/<str:updown>', views.vote, name='vote'),
 
-    path('login/<str:name>/<str:password>', views.login, name='login'),
+    path('login/<str:name>/<str:word>', views.login, name='login'),
 
     path('account/<str:name>/<str:word>', views.createAccount, name='createAccount'),
     #ex: /

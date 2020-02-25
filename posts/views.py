@@ -74,6 +74,4 @@ def login(request, name,word):
         i = Account.objects.get(uname=name, pword=word)
         return HttpResponse(str(i.id))
     except ObjectDoesNotExist:
-        a = Account(uname=name,pword=word, signup_date=timezone.now())
-        a.save()
-        return HttpResponse(str(a.id))
+        return HttpResponse("nope")
