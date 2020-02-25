@@ -14,6 +14,10 @@ def index(request):
             out += (q.post_title+"<br>"+q.post_sub+"<br>"+q.post_text+"<br>"+str(q.id)+"<br>"+str(q.votes)+"<br>"+str(q.happy)+"<br>"+str(q.angry)+"<br>"+str(q.stressy)+"<br>"+str(q.energy)+"<br>"+str(q.worry)+"<br>"+Account.objects.get(pk=q.id).uname+"<hr>")
     return HttpResponse(out)
 def make(request, title, body, sub, happ, angr, stress, energ, worr, posterID):
+    try:
+        i = Account.objects.get(pk=id)
+    except ObjectDoesNotExist:
+        return HttpResponse("invalid")
     happyVar=False
     angryVar=False
     stressyVar=False
