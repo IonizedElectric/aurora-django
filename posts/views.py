@@ -5,6 +5,7 @@ from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
 from django.core.exceptions import ObjectDoesNotExist
+import urllib.parse
 #Main, I guess?
 def index(request):
     latest_post_list = Post.objects.order_by('votes')
@@ -33,7 +34,7 @@ def make(request, title, body, sub, happ, angr, stress, energ, worr, posterID):
         energyVar=True
     if(worr==1):
         worryVar=True
-    p = Post(post_title=title, post_text=body, post_sub=sub, pub_date=timezone.now(), happy=happyVar, angry=angryVar, stressy=stressyVar, energy=energyVar, worry=worryVar, poster=Account.objects.get(pk=posterID).uname)
+    p = Post(post_title=unparse(title), post_text=unparse(body), post_sub=unparse(sub), pub_date=timezone.now(), happy=happyVar, angry=angryVar, stressy=stressyVar, energy=energyVar, worry=worryVar, poster=Account.objects.get(pk=posterID).uname)
     p.save()
     return HttpResponse("OK")
 def detail(request, post_id):
@@ -66,7 +67,7 @@ def createAccount(request,name,word):
         i = Account.objects.get(uname=name)
         return HttpResponse("uname")
     except ObjectDoesNotExist:
-        a = Account(uname=name,pword=word, signup_date=timezone.now())
+        a = Account(uname=unparse(name),pword=unparse(word), signup_date=timezone.now())
         a.save()
         return HttpResponse(str(a.id))
 def login(request, name,word):
@@ -75,3 +76,6 @@ def login(request, name,word):
         return HttpResponse(str(i.id))
     except ObjectDoesNotExist:
         return HttpResponse("nope")
+
+def unparse(text)
+    return urllib.parse.unquote_plus(urllib.parse.unquote(text))
