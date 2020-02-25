@@ -7,7 +7,7 @@ from django.utils import timezone
 from django.core.exceptions import ObjectDoesNotExist
 #Main, I guess?
 def index(request):
-    latest_post_list = Post.objects.order_by('-pub_date')
+    latest_post_list = Post.objects.order_by('votes')
     out = ""
     for q in latest_post_list:
         if(q.to_show):
