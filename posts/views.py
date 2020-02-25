@@ -15,7 +15,7 @@ def index(request):
     return HttpResponse(out)
 def make(request, title, body, sub, happ, angr, stress, energ, worr, posterID):
     try:
-        i = Account.objects.get(pk=id)
+        i = Account.objects.get(pk=int(posterID))
     except ObjectDoesNotExist:
         return HttpResponse("invalid")
     happyVar=False
