@@ -81,18 +81,18 @@ def betterIndex(request,happ,angr,stress,worr,energ,start,len):
     latest_post_list = Post.objects.order_by('votes')[start:len]
     out = ""
     for q in latest_post_list:
-        if(happ=1 and not q.happy):
+        if(happ==1 and not q.happy):
             tempshow=False
-        if(angr=1 and not q.angry):
+        if(angr==1 and not q.angry):
             tempshow=False
-        if(stress=1 and not q.stressy):
+        if(stress==1 and not q.stressy):
             tempshow=False
-        if(worr=1 and not q.worry):
+        if(worr==1 and not q.worry):
             tempshow=False
-        if(energ=1 and not q.energy):
+        if(energ==1 and not q.energy):
             tempshow=False
         if(q.to_show and tempshow):
             out += (q.post_title+"<br>"+q.post_sub+"<br>"+q.post_text+"<br>"+str(q.id)+"<br>"+str(q.votes)+"<br>"+str(q.happy)+"<br>"+str(q.angry)+"<br>"+str(q.stressy)+"<br>"+str(q.energy)+"<br>"+str(q.worry)+"<br>"+q.poster+"<hr>")
     return HttpResponse(out)
-def unparse(text)
+def unparse(text):
     return urllib.parse.unquote_plus(urllib.parse.unquote(text))
