@@ -47,18 +47,39 @@ def detail(request, post_id):
 def results(request, post_id):
     return HttpResponse(str(Post.objects.get(pk=post_id).votes))
 
-def vote(request, post_id, updown):
+def vote(request, post_id, updown, u_id):
     p = Post.objects.get(pk=post_id)
-    if(updown == "up"):
-        p.votes += 1
-        print("up")
-    elif(updown == "down"):
-        p.votes += -1
-        print("down")
+    downer = p.downers.split(",")
+    upper = p.uppers.split(",")
+    if((u_id in uppers) and updown == "up"):
+        print("in uppers")
+    elif((u_id in downers) and updown == "down"):
+        print("in downers")
+    elif((u_id in downers) and updown == "up"):
+        print("in downers, tryna up")
+        downer.remove(str(u_id))
+        p.votes += 2
+
+    elif((u_id in uppers) and updown == "down"):
+        print("in uppers, tryna down")
+        downer.remove(str(u_id))
+        p.votes += (0-2)
+
+    else:
+        if(updown == "up"):
+            p.votes += 1
+            upper.append(str(u_id))
+            print("up")
+        elif(updown == "down"):
+            p.votes += -1
+            downer.append(str(u_id))
+            print("down")
 
     if(p.votes < (-10)):
         p.to_show = False
         print("No show"+p.post_title+" "+str(p.id))
+    p.uppers = ','.join(upper)
+    p.downers = ','.join(downer)
     p.save()
     return HttpResponse("OK")
 

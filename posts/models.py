@@ -6,7 +6,7 @@ class Post(models.Model):
     def __str__(self):
         return self.post_title
     poster = models.CharField(max_length=30)
-    post_text = models.CharField(max_length=500)
+    post_text = models.TextField()
     post_title = models.CharField(max_length=20)
     post_sub = models.CharField(max_length=20)
     pub_date = models.DateTimeField('Date published')
@@ -17,6 +17,8 @@ class Post(models.Model):
     stressy = models.BooleanField(default=False)
     energy = models.BooleanField(default=False)
     worry = models.BooleanField(default=False)
+    uppers = models.TextField()
+    downers = models.TextField()
     def was_published_recently(self):
         return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
 
