@@ -93,7 +93,7 @@ def createAccount(request,name,word):
         return HttpResponse(str(a.id))
 def login(request, name,word):
     try:
-        i = Account.objects.get(uname=name, pword=word)
+        i = Account.objects.get(uname=unparse(name), pword=unparse(word))
         return HttpResponse(str(i.id))
     except ObjectDoesNotExist:
         return HttpResponse("nope")
