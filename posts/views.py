@@ -97,8 +97,14 @@ def login(request, name,word):
         return HttpResponse(str(i.id))
     except ObjectDoesNotExist:
         return HttpResponse("nope")
-
-def betterIndex(request,happ,angr,stress,worr,energ,start,len):
+def temp1(q, u_id):
+    if (str(u_id) in q.uppers.split(',')):
+        return "up"
+    elif (str(u_id) in q.downers.split(',')):
+        return "down"
+    else:
+        return "none"
+def betterIndex(request,happ,angr,stress,worr,energ,start,len,u_id):
     latest_post_list = Post.objects.order_by('votes')[start:len]
     out = ""
     for q in latest_post_list:
@@ -113,7 +119,7 @@ def betterIndex(request,happ,angr,stress,worr,energ,start,len):
         if(energ==1 and not q.energy):
             tempshow=False
         if(q.to_show and tempshow):
-            out += (q.post_title+"<br>"+q.post_sub+"<br>"+q.post_text+"<br>"+str(q.id)+"<br>"+str(q.votes)+"<br>"+str(q.happy)+"<br>"+str(q.angry)+"<br>"+str(q.stressy)+"<br>"+str(q.energy)+"<br>"+str(q.worry)+"<br>"+q.poster+"<hr>")
+            out += (q.post_title+"<br>"+q.post_sub+"<br>"+q.post_text+"<br>"+str(q.id)+"<br>"+str(q.votes)+"<br>"+str(q.happy)+"<br>"+str(q.angry)+"<br>"+str(q.stressy)+"<br>"+str(q.energy)+"<br>"+str(q.worry)+"<br>"+q.poster+"<br>"+temp1(q,u_id)+"<hr>")
     return HttpResponse(out)
 def unparse(text):
     return urllib.parse.unquote_plus(urllib.parse.unquote(text))
