@@ -7,12 +7,12 @@ from django.utils import timezone
 from django.core.exceptions import ObjectDoesNotExist
 import urllib.parse
 #Main, I guess?
-def index(request):
+def index(request, u_id):
     latest_post_list = Post.objects.order_by('votes')
     out = ""
     for q in latest_post_list:
         if(q.to_show):
-            out += (q.post_title+"<br>"+q.post_sub+"<br>"+q.post_text+"<br>"+str(q.id)+"<br>"+str(q.votes)+"<br>"+str(q.happy)+"<br>"+str(q.angry)+"<br>"+str(q.stressy)+"<br>"+str(q.energy)+"<br>"+str(q.worry)+"<br>"+q.poster+"<hr>")
+            out += (q.post_title+"<br>"+q.post_sub+"<br>"+q.post_text+"<br>"+str(q.id)+"<br>"+str(q.votes)+"<br>"+str(q.happy)+"<br>"+str(q.angry)+"<br>"+str(q.stressy)+"<br>"+str(q.energy)+"<br>"+str(q.worry)+"<br>"+q.poster+"<br>"+temp1(q, u_id)+"<hr>")
     return HttpResponse(out)
 def make(request, title, body, sub, happ, angr, stress, energ, worr, posterID):
     try:
