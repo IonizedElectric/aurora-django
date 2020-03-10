@@ -49,7 +49,7 @@ def results(request, post_id):
 
 def vote(request, post_id, updown, u_id):
     p = Post.objects.get(pk=post_id)
-    downer = p.downers.split(",")
+    downers = p.downers.split(",")
     uppers = p.uppers.split(",")
     if((u_id in uppers) and updown == "up"):
         print("in uppers")
