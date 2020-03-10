@@ -57,22 +57,22 @@ def vote(request, post_id, updown, u_id):
         print("in downers")
     elif((u_id in downers) and updown == "up"):
         print("in downers, tryna up")
-        downer.remove(str(u_id))
+        downers.remove(str(u_id))
         p.votes += 2
 
     elif((u_id in uppers) and updown == "down"):
         print("in uppers, tryna down")
-        downer.remove(str(u_id))
+        uppers.remove(str(u_id))
         p.votes += (0-2)
 
     else:
         if(updown == "up"):
             p.votes += 1
-            upper.append(str(u_id))
+            uppers.append(str(u_id))
             print("up")
         elif(updown == "down"):
             p.votes += -1
-            downer.append(str(u_id))
+            downers.append(str(u_id))
             print("down")
 
     if(p.votes < (-10)):
