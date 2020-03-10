@@ -78,8 +78,8 @@ def vote(request, post_id, updown, u_id):
     if(p.votes < (-10)):
         p.to_show = False
         print("No show"+p.post_title+" "+str(p.id))
-    p.uppers = ','.join(upper)
-    p.downers = ','.join(downer)
+    p.uppers = ','.join(uppers)
+    p.downers = ','.join(downers)
     p.save()
     return HttpResponse("OK")
 
